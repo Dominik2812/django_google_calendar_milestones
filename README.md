@@ -67,6 +67,6 @@ The * views.py * consists of four major parts:
   
   ![loadData](pics/delete.png?raw=true "loadData")
   
-* Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calender events. Eventually events that do not have an equivalent milestone in the database are deleted. 
+* Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calender events. Eventually events that do not have an equivalent milestone in the database are deleted. This view applies in the methode *synchronize*´all the methods that are inherited from the **Eventmanipulation** class. As it also inherits from the **MilestoneView**, the *get* method will render the '"milestones_app/detail_goal.html" template. 
 
 ![loadData](pics/synchronize.png?raw=true "loadData")
