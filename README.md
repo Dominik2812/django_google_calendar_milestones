@@ -40,19 +40,26 @@ go to Google Cloud Platform:
     * create OAUthClient ID:
       * choose Desktop Application
   * download your client_id.json
-## Code
+## Remarks on the code
 
 ### models. py
 Two object classes are defined in *models.py*; **Goal** and **Milestone**, the latter linked with a Foreigneky to the first. In the following two important attributed color_id and color_code will be explained.
 * The color_id attribute of the **Goal** class is used to color events in your Google Calendar. It must be manually selected by the user. The choices are stored within the COLOR list in the* models.py *. The color_id attribute of the ** Milestone ** class automatically corresponds to the one of ** Goal **.  
 * The attribute color_code calculated from color_id and is used to colorcode the HTML elements in your templatefiles. 
+![loadData](pics/model.png?raw=true "loadData")
 ### forms.py
 Despite having two model classes only one from class is used: MileStoneForm. The reason to use the MileStoneForm class was the design of the DataInput fields, which looks nicer with the form model. 
 ### views.py
 The * views.py * consists of four major parts:
 * The **AccessToGoogleCalendar** class established the connection to your Google Calendar. On the first call, you will be redirected to a consent screen, where you permit the access. Thereby a "token.pkl" is created and locally stored in your project directory. The token will then being used to access Google Calendar in all future calls.
+
+![loadData](pics/access.png?raw=true "loadData")
+
 * The **EventManipulation** class that enables the app to list, create and delete Google Calendar events.
 * The third part consists of all the View classes  to list, create and delete objects from the database. 
-  * To display the list of objects as well as the creation form in the same template, the *get* method of the **GoalsView ** as well as the **MilestoneView** has been modified in the following manner
+  * To display the list of objects as well as the creation form in the same template, the *get* method of the **GoalsView** as well as the **MilestoneView** has been modified in the following manner.
+  ![loadData](pics/create_list.png?raw=true "loadData")
   * The *success_url* attribute of the **DeleteMileStoneView** class is modified to stay on the same page by the *get_success_url* method.
+  ![loadData](pics/delete.png?raw=true "loadData")
 * Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calender events. Eventually events that do not have an equivalent milestone in the database are deleted. 
+![loadData](pics/synchronize.png?raw=true "loadData")
