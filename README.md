@@ -54,5 +54,5 @@ The * views.py * consists of four major parts:
 * The **EventManipulation** class that enables the app to list, create and delete Google Calendar events.
 * The third part consists of all the View classes  to list, create and delete objects from the database. 
   * To display the list of objects as well as the creation form in the same template, the *get* method of the **GoalsView ** as well as the **MilestoneView** has been modified in the following manner
-  * The *success_url * attribute of the **DeleteMileStoneView ** class is modified to stay on the same page by the *get_success_url* method.
-* Finally the ** SynchronizeView **  queries all milestones from the database and mirrors them as Google Calender events. Eventually events that do not have an equivalent milestone in the database are deleted. 
+  * The *success_url* attribute of the **DeleteMileStoneView** class is modified to stay on the same page by the *get_success_url* method.
+* Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calender events. Eventually events that do not have an equivalent milestone in the database are deleted. 
