@@ -1,0 +1,83 @@
+{% extends "start.html" %}
+
+{% block body_block %}
+
+<div class="card bg-primary text-white mt-2 p-3 h-25 text-center">
+    <h1>
+        Milestones of {{goal.title}}
+    </h1>
+</div>
+
+
+<div class="d-lg-flex flex-row justify-content-between">
+
+    <div class="card m-3 p-3 col-md-3 h-25 ">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="d-flex flex-column">
+                    <div>
+                        <h4> Title </h4>
+                        {{ milestone_form.title }}
+                    </div>
+                    <div>
+                        <h4> Notes </h4>
+                        {{ milestone_form.text }}
+                    </div>
+                    <div>
+                        <h4>Start</h4>
+                        {{ milestone_form.start }}
+                    </div>
+                    <div>
+                        <h4>End</h4>
+                        {{ milestone_form.end }}
+                    </div>
+                    <div>
+                        <h4> Goal or Project</h4>
+                        {{ milestone_form.goal }}
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary m-3 p-3">
+                    create Milestone
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-3 w-75 m-3 justify-content-center">
+        {% for stone in  goal.milestones.all %}
+
+        <div class="card d-flex flex-column w-75 text-center m-3" style="background-color: {{ goal.color_code }};">
+            <div class="card-title">
+                <h2>{{stone.title}}</h2>
+            </div>
+            <div class="card d-flex flex-column">
+                <div>{{stone.text}}</div>
+            </div>
+            <div class="card d-flex flex-column">
+
+                <div>{{stone.start}}</div>
+                <div>{{stone.end}}</div>
+
+            </div>
+            <form action="{% url 'milestones_app:deleteMileStone' pk=stone.id %}">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+
+        {% endfor %}
+
+
+
+    </div>
+
+    <!-- <div class="container justify-content-center d-flex h-75 m-3">
+        <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FBerlin&amp;src=ZGV2ZWxvcGVyZmFrZTgzQGdtYWlsLmNvbQ&amp;color=%23039BE5"
+            style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div> -->
+</div>
+
+
+{% endblock %}
