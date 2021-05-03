@@ -22,7 +22,7 @@
 
 ## First steps: get acess to google calendar
 To use this app you need to comunicate with your Google calendar. For that please follow these steps:
-* create a new Google Calendar and call it Milestones. For security reasons do not use your personal Calendar. All Events that are not in your local database will we deleted.
+* create a new Google Calendar and call it Milestones. For security reasons do not use your personal Calendar. All Events that are not in your local database will we deleted. The Milestones Calendar can be displayed along with your personal Calendar. 
 
 * go to Google Cloud Platform:
 * create create a google developers 
