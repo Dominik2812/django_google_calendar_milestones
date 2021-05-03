@@ -1,6 +1,6 @@
 # google_calendar_milestones
 
-## Abstract
+## What is milestones about?
 
 * Use your google calendar to break problems, challenges and projects into milestones.
 
@@ -22,8 +22,9 @@
 
 ## First steps: get acess to google calendar
 To use this app you need to comunicate with your Google calendar. For that please follow these steps:
+* create a new Google Calendar and call it Milestones. For security reasons do not use your personal Calendar. All Events that are not in your local database will we deleted.
 
-go to Google Cloud Platform:
+* go to Google Cloud Platform:
 * create create a google developers 
 * then search for Google Calendar API
 * enable the API
@@ -40,6 +41,8 @@ go to Google Cloud Platform:
     * create OAUthClient ID:
       * choose Desktop Application
   * download your client_id.json
+
+
 ## Remarks on the code
 
 ### models. py
