@@ -218,7 +218,6 @@ class DeleteMileStoneView(DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-
 ########################################################################
 # Views, interacting with objects of local database
 ########################################################################
@@ -244,9 +243,9 @@ class SynchronizeView(EventManipulation, MilestoneView):
                     goal = str(milestone.goal)
                     self.create_event(goal, title, text, start, end, g_id, color_id)
 
-        # delete all events in google calendar that are not in teh database
+        # Delete all events in google calendar that are not in teh database
         else:
-            # filter  out the google calendar ids
+            # Filter  out the google calendar ids
             db_milestones = [str(milestone.g_id) for milestone in db_milestones]
             for milestone in google_milestones:
                 if milestone not in db_milestones:
