@@ -2,7 +2,7 @@
 
 ## What is milestones about?
 
-* Use your google calendar to break problems, challenges and projects into milestones.
+* Use a fake google calendar to break problems, challenges and projects into milestones.
 
 * Formulate your goals.
 
