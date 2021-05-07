@@ -27,12 +27,17 @@
 
                 <!-- <a class="nav-item nav-link" href="{% url 'goals' %}"> My Goals</a> -->
                 <form action="{% url 'goals' %}">
-                    <button type="submit" class="btn btn-warning m-3">My Goals</button>
+                    <button type="submit" class="btn btn-warning m-3">Create Goals</button>
                 </form>
                 {% if goal %}
                 <form action="{% url 'synchronize' pk=goal.id %}">
                     <button type="submit" class="btn btn-info m-3">Synchronize</button>
                 </form>
+                {% if milestone_form %}
+                <form action="{% url 'detailGoal' pk=goal.id %}" class="m-2">
+                    <button type="submit" class="btn btn-dark  m-1 "> back to Goal </button>
+                </form>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
@@ -40,11 +45,13 @@
 
 
     <div class="container-fluid justify-content-center d-flex flex-column" style="font-family: cursive;">
-        {% include "milestones_app/goals.html" %}
+
+
+
         {% block body_block %}
         {% endblock %}
     </div>
-    
+
 
 
 

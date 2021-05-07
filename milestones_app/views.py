@@ -163,9 +163,9 @@ class CreateMileStone(CreateView):
 
 
 # This view lists all milestones of a chosen goal. milestones can be created here.
-class MilestoneTestView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
+class MilestoneShowView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
     model = Goal
-    template_name = "milestones_app/detail_goal.html"
+    template_name = "milestones_app/goals.html"
 
     # Create a success_url that includes a variable; here the id of the goal
     def get_success_url(self):
@@ -211,51 +211,51 @@ class MilestoneTestView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
             request,
             self.template_name,
             {
-                "milestone_form": create_milestone_form_data,
+                # "milestone_form": create_milestone_form_data,
                 "goal": goal_detail_data,
                 "goals": [element for element in list(goals_list_data)],
             },
         )
 
 
-# # This view lists all milestones of a chosen goal. milestones can be created here.
-# class MilestoneView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
-#     model = Goal
-#     template_name = "milestones_app/detail_goal.html"
+# This view lists all milestones of a chosen goal. milestones can be created here.
+class MilestoneCreateView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
+    model = Goal
+    template_name = "milestones_app/create_milestone.html"
 
-#     # Create a success_url that includes a variable; here the id of the goal
-#     def get_success_url(self):
-#         return reverse("detailGoal", kwargs={"pk": self.object.goal.id})
+    # Create a success_url that includes a variable; here the id of the goal
+    def get_success_url(self):
+        return reverse("detailGoal", kwargs={"pk": self.object.goal.id})
 
-#     # Create an evevnt_id for Google Calendar
-#     def generate_event_id(self):
-#         code = ""
-#         for _ in range(10):
-#             code = (
-#                 code
-#                 + random.choice(string.ascii_lowercase[:15])
-#                 + str(random.randint(0, 9))
-#             )
-#         return code
+    # Create an evevnt_id for Google Calendar
+    def generate_event_id(self):
+        code = ""
+        for _ in range(10):
+            code = (
+                code
+                + random.choice(string.ascii_lowercase[:15])
+                + str(random.randint(0, 9))
+            )
+        return code
 
-#     # Process the request
-#     def get(self, request, *args, **kwargs):
-#         formView = CreateMileStone.get(self, request, *args, **kwargs)
-#         detailView = BaseDetailView.get(self, request, *args, **kwargs)
-#         formData = formView.context_data["form"]
-#         listData = detailView.context_data["object"]
+    # Process the request
+    def get(self, request, *args, **kwargs):
+        formView = CreateMileStone.get(self, request, *args, **kwargs)
+        detailView = BaseDetailView.get(self, request, *args, **kwargs)
+        formData = formView.context_data["form"]
+        listData = detailView.context_data["object"]
 
-#         # Assign a google calendar event_id to the objects in the database
-#         for milestone in listData.milestones.all():
-#             milestone.color_id = listData.color_id
-#             if milestone.g_id == None:
-#                 milestone.g_id = self.generate_event_id()
-#                 milestone.save()
-#         return render(
-#             request,
-#             self.template_name,
-#             {"milestone_form": formData, "goal": listData},
-#         )
+        # Assign a google calendar event_id to the objects in the database
+        for milestone in listData.milestones.all():
+            milestone.color_id = listData.color_id
+            if milestone.g_id == None:
+                milestone.g_id = self.generate_event_id()
+                milestone.save()
+        return render(
+            request,
+            self.template_name,
+            {"milestone_form": formData, "goal": listData},
+        )
 
 
 class DeleteGoalView(DeleteView):
@@ -281,7 +281,7 @@ class DeleteMileStoneView(DeleteView):
 ########################################################################
 
 # Calling this view projects all milestones from the database to Google Calendar. Events that cannot be found in the database will be deleted.
-class SynchronizeView(EventManipulation, MilestoneTestView):
+class SynchronizeView(EventManipulation, MilestoneShowView):
     def synchronize(self):
         db_milestones = Milestone.objects.all()
         google_milestones = self.get_events()
@@ -309,19 +309,19 @@ class SynchronizeView(EventManipulation, MilestoneTestView):
                 if milestone not in db_milestones:
                     self.delete_event(milestone)
 
-    # def get(self, request, *args, **kwargs):
-    #     formView = CreateMileStone.get(self, request, *args, **kwargs)
-    #     detailView = BaseDetailView.get(self, request, *args, **kwargs)
-    #     formData = formView.context_data["form"]
-    #     listData = detailView.context_data["object"]
-    #     for milestone in listData.milestones.all():
-    #         milestone.color_id = listData.color_id
-    #         if milestone.g_id == None:
-    #             milestone.g_id = self.generate_event_id()
-    #             milestone.save()
-    #     self.synchronize()
-    #     return render(
-    #         request,
-    #         self.template_name,
-    #         {"milestone_form": formData, "goal": listData},
-    #     )
+    def get(self, request, *args, **kwargs):
+        formView = CreateMileStone.get(self, request, *args, **kwargs)
+        detailView = BaseDetailView.get(self, request, *args, **kwargs)
+        formData = formView.context_data["form"]
+        listData = detailView.context_data["object"]
+        for milestone in listData.milestones.all():
+            milestone.color_id = listData.color_id
+            if milestone.g_id == None:
+                milestone.g_id = self.generate_event_id()
+                milestone.save()
+        self.synchronize()
+        return render(
+            request,
+            self.template_name,
+            {"milestone_form": formData, "goal": listData},
+        )

@@ -21,7 +21,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.GoalsView.as_view(), name="goals"),
     path("/delete/<int:pk>", views.DeleteGoalView.as_view(), name="deleteGoal"),
-    path("/detail/<int:pk>", views.MilestoneTestView.as_view(), name="detailGoal"),
+    path("/detail/<int:pk>", views.MilestoneShowView.as_view(), name="detailGoal"),
+    path(
+        "/create/<int:pk>", views.MilestoneCreateView.as_view(), name="createMilestone"
+    ),
     path("/synchronize/<int:pk>", views.SynchronizeView.as_view(), name="synchronize"),
     path("milestones", include("milestones_app.urls"), name="milestones"),
 ]
