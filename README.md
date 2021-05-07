@@ -73,3 +73,6 @@ The * views.py * consists of four major parts:
 * Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calendar events. Eventually, events that do not have an equivalent milestone in the database are deleted. This view applies in the method *synchronize* all the methods that are inherited from the **Eventmanipulation** class. As it also inherits from the **MilestoneView**, the *get* method will render the '"milestones_app/detail_goal.html" template. 
 
 ![loadData](pics/synchronize.png?raw=true "loadData")
+
+### optional iframes
+In the templates *goals.html* and *detail_goal.html* an iframe is commented out with which you couldd potenitally display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
