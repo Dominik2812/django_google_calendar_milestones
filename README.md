@@ -2,19 +2,17 @@
 
 ## What are milestones about?
 
-* Use a fake google calendar to break problems, challenges and projects into milestones.
+* Use a  google calendar to break problems, challenges and projects into milestones.
 
 * Formulate your goals.
 
 ![loadData](pics/create_goals.png?raw=true "create_goals")
 
 
-* Go to milestones and create the necessary steps to reach your goal; the milestones.
+* Create the necessary steps to reach your goal; the milestones.
 
 ![loadData](pics/create_milestones.png?raw=true "loadData")
 
-
-* synchronize your local database with your Google Calendar and send all milestones. An " on-demand " data transfer is preferred as you might first want to brainstorm about your milestones before transferring them. 
 * ![loadData](pics/list_milestones.png?raw=true "loadData")
 
 * View your milestones as events on your Google Calendar, their color code relates to the goals they are linked to.
@@ -54,7 +52,7 @@ Two object classes are defined in *models.py*; **Goal** and **Milestone**, the l
 ### forms.py
 Despite having two model classes only one from class is used: MileStoneForm. The reason to use the MileStoneForm class was the design of the DataInput fields, which look nicer with the form model. 
 ### views.py
-The * views.py * consists of four major parts:
+The * views.py * consists of three major parts:
 * The **AccessToGoogleCalendar** class established the connection to your Google Calendar. On the first call, you will be redirected to a consent screen, where you permit access. Thereby a "token.pkl" is created and locally stored in your project directory. The token will then be used to access Google Calendar in all future calls.
 
 ![loadData](pics/access.png?raw=true "loadData")
@@ -71,9 +69,6 @@ The * views.py * consists of four major parts:
   
   ![loadData](pics/delete.png?raw=true "loadData")
   
-* Finally the **SynchronizeView**  queries all milestones from the database and mirrors them as Google Calendar events. Eventually, events that do not have an equivalent milestone in the database are deleted. This view applies in the method *synchronize* all the methods that are inherited from the **Eventmanipulation** class. As it also inherits from the **MilestoneView**, the *get* method will render the '"milestones_app/detail_goal.html" template. 
-
-![loadData](pics/synchronize.png?raw=true "loadData")
 
 ### optional iframes
 In the templates *goals.html* and *detail_goal.html* an iframe is commented out with which you couldd potenitally display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
