@@ -6,15 +6,16 @@
 
 * Formulate your goals.
 
-![loadData](pics/goals.png?raw=true "loadData")
+![loadData](pics/create_goals.png?raw=true "create_goals")
 
 
 * Go to milestones and create the necessary steps to reach your goal; the milestones.
 
-![loadData](pics/milestones.png?raw=true "loadData")
+![loadData](pics/create_milestones.png?raw=true "loadData")
 
 
 * synchronize your local database with your Google Calendar and send all milestones. An " on-demand " data transfer is preferred as you might first want to brainstorm about your milestones before transferring them. 
+* ![loadData](pics/list_milestones.png?raw=true "loadData")
 
 * View your milestones as events on your Google Calendar, their color code relates to the goals they are linked to.
 
