@@ -1,0 +1,24 @@
+<div class="col-md-10 m-3 justify-content-start">
+    {% for stone in  goal.milestones.all %}
+
+    <div class="card d-flex flex-column w-100 text-center m-3" style="background-color: {{ goal.color_code }};">
+        <div class="card-title d-flex flex-row justify-content-between">
+            <h2>{{stone.title}}</h2>
+            <form action="{% url 'milestones_app:deleteMileStone' pk=stone.id %}">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+        <div class="card d-flex flex-column m-1">
+            <div>{{stone.text}}</div>
+        </div>
+        <div class="card d-flex flex-column m-1">
+
+            <div>{{stone.start}}</div>
+            <div>{{stone.end}}</div>
+
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
