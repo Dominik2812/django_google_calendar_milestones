@@ -163,7 +163,7 @@ class CreateMileStone(CreateView):
 
 
 # This view lists all milestones of a chosen goal. milestones can be created here.
-class MilestoneShowView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
+class MilestoneShowView(BaseDetailView, TemplateResponseMixin):
     model = Goal
     template_name = "milestones_app/goals.html"
 
@@ -171,43 +171,19 @@ class MilestoneShowView(CreateMileStone, BaseDetailView, TemplateResponseMixin):
     def get_success_url(self):
         return reverse("detailGoal", kwargs={"pk": self.object.goal.id})
 
-    # Create an evevnt_id for Google Calendar
-    # def generate_event_id(self):
-    #     code = ""
-    #     for _ in range(10):
-    #         code = (
-    #             code
-    #             + random.choice(string.ascii_lowercase[:15])
-    #             + str(random.randint(0, 9))
-    #         )
-    #     return code
-
     # Process the request
     def get(self, request, *args, **kwargs):
         print("----------------------------Show")
-        create_milestone_form_view = CreateMileStone.get(self, request, *args, **kwargs)
         goal_detail_view = BaseDetailView.get(self, request, *args, **kwargs)
-
-        # kwargs = {}
-        # goals_list_view = BaseListView.get(self, request, *args, **kwargs)
-        create_milestone_form_data = create_milestone_form_view.context_data["form"]
         goal_detail_data = goal_detail_view.context_data["object"]
         goals_list_data = Goal.objects.all()
-
-        # goals_list_data = goals_list_view.context_data["object"]
-        # print(
-        #     [element for element in list(goals_list_data)],
-        #     type(goal_detail_data),
-        #     "listData",
-        # )
 
         # Assign a google calendar event_id to the objects in the database
         for milestone in goal_detail_data.milestones.all():
             milestone.color_id = goal_detail_data.color_id
-            if milestone.g_id == None:
-                milestone.g_id = self.generate_event_id()
-                print("-----------------Im not in there")
-                milestone.save()
+            # if milestone.g_id == None:
+            #     milestone.g_id = self.generate_event_id()
+            #     milestone.save()
         return render(
             request,
             self.template_name,
@@ -256,7 +232,6 @@ class MilestoneCreateView(
             milestone.color_id = listData.color_id
             if milestone.g_id == None:
                 milestone.g_id = self.generate_event_id()
-                print("-----------------Im not in there")
                 title, text, start, end, g_id, color_id = (
                     str(milestone.title),
                     str(milestone.text),

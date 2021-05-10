@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+import datetime
 
 # For the drop down menu
 COLORS = [
@@ -39,10 +40,7 @@ class Milestone(models.Model):
         default="Why I chose this to be my first Milestone:",
     )
 
-    start = models.DateTimeField(
-        null=True,
-        blank=True,
-    )
+    start = models.DateTimeField(null=True, blank=True, default = datetime.datetime.utcnow().isoformat())
     end = models.DateTimeField(
         null=True,
         blank=True,
