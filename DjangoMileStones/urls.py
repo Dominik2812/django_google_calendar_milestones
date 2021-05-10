@@ -25,6 +25,6 @@ urlpatterns = [
     path(
         "/create/<int:pk>", views.MilestoneCreateView.as_view(), name="createMilestone"
     ),
-    path("/synchronize/<int:pk>", views.SynchronizeView.as_view(), name="synchronize"),
+    # path("/synchronize/<int:pk>", views.SynchronizeView.as_view(), name="synchronize"),
     path("milestones", include("milestones_app.urls"), name="milestones"),
 ]
