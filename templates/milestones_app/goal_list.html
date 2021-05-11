@@ -2,13 +2,13 @@
     {% for goal in goals %}
     <div class="card d-flex flex-row justify-content-between mb-5">
         <div class="card d-flex flex-column justify-content-between p-3 m-3">
-            <form action="{% url 'detailGoal' pk=goal.id %}">
+            <form action="{% url 'milestones_app:detail_goal' pk=goal.id %}">
                 <button type="submit" class="btn btn-info w-100 m-1 ">Show Milestones </button>
             </form>
-            <form action="{% url 'createMilestone' pk=goal.id %}">
+            <form action="{% url 'milestones_app:create_milestone' pk=goal.id %}">
                 <button type="submit" class="btn btn-success w-100 m-1">Create Milestones </button>
             </form>
-            <form action="{% url 'deleteGoal' pk=goal.id %}">
+            <form action="{% url 'milestones_app:delete_goal' pk=goal.id %}">
                 <button type="submit" class="btn btn-danger w-100 m-1">Delete</button>
             </form>
         </div>
@@ -17,7 +17,6 @@
                 <h1> {{ goal.title }} </h1>
             </div>
         </div>
-
     </div>
     {% endfor %}
 </div>

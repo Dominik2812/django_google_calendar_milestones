@@ -37,7 +37,7 @@ class Milestone(models.Model):
         max_length=2000,
         null=True,
         blank=True,
-        default="Why I chose this to be my first Milestone:",
+        default="any Note?",
     )
 
     start = models.DateTimeField(null=True, blank=True, default = datetime.datetime.utcnow().isoformat())
