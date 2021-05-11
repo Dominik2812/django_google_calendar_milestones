@@ -78,7 +78,7 @@ The * views.py * consists of three major parts:
 
 * The **DeleteGoalView** and **DeleteMilestoneView** contain modified *get* methods to not only delete the Milestone from the local database but also the equivalent event in your calendar. In addition the *success_url* attribute of the **DeleteMileStoneView** class is modified to stay on the same page by the *get_success_url* method.
   
-  ![loadData](pics/delete.png?raw=true "loadData")
+  ![loadData](pics/DeleteMilestoneView.png?raw=true "loadData")
 
 * An additional **SynchronizeView** enables you to adapt your local database if events in the Google Calendar have been deleted.
 
