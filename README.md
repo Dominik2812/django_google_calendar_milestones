@@ -9,7 +9,7 @@ Use a google calendar to approach goals, challenges and projects step by step: B
 ![loadData](pics/create_goals.png?raw=true "create_goals")
 
 
-* Create the necessary steps to reach your goal; the milestones. Set a start and an end date and if neccessary add a note to the milestone.
+* Create the necessary steps to reach your goal; the milestones. Set a start and an end date and if necessary add a note to the milestone.
 
 ![loadData](pics/create_milestones.png?raw=true "loadData")
 
@@ -49,7 +49,7 @@ To use this app you need to communicate with your Google calendar. For that plea
 ## Remarks on the code
 ### models. py
 Two object classes are defined in *models.py*; **Goal** and **Milestone**, the latter linked with a Foreigneky to the first. In the following two important attributed color_id and color_code will be explained.
-* The color_id attribute of the **Goal** class is used to color events in your Google Calendar. It must be manually selected by the user. The choices are stored within the COLOR list in the* models.py *. The color_id attribute of the ** Milestone ** class automatically corresponds to the one of ** Goal **.  
+* The color_id attribute of the **Goal** class is used to color events in your Google Calendar. It must be manually selected by the user. The choices are stored within the COLOR list in the* models.py *. The color_id attribute of the **Milestone** class automatically corresponds to the one of **Goal**.  
 * The attribute color_code is calculated from color_id and is used to color-code the HTML elements in your template files. 
 ![loadData](pics/model.png?raw=true "loadData")
 ### forms.py
@@ -63,24 +63,24 @@ The * views.py * consists of three major parts:
 
 * The **EventManipulation** class that enables the app to list, create and delete Google Calendar events. Methods from the **AccessToGoogleCalendar** class are inherited.
 
-* The third part consists of all the View classes to list, create and delete objects from the database. Those Views inherit from the previous parts **Eventmanipulation** and thereby from  the **AccessToGoogleCalendar** class. There are three major views. The GoalsView, that enables you to create a goal and lists all former goals to the right. The MilestoneCreateView does the same for Milestone objects. The MilestoneShowView enables you to comfortably display all Milestones of a certain Goal, with the list of Goals on the left and the lsit of goals on the right. 
+* The third part consists of all the View classes to list, create and delete objects from the database. Those Views inherit from the previous parts **Eventmanipulation** and thereby from the **AccessToGoogleCalendar** class. There are three major views. The GoalsView, enables you to create a goal and lists all former goals to the right. The MilestoneCreateView does the same for Milestone objects. The MilestoneShowView enables you to comfortably display all Milestones of a certain Goal, with the list of Goals on the left and the list of goals on the right. 
 
-* All those views combine either display a form to create an object and a list of either the same species or yet another object class. This achived by inheriting from different Django classes  **BaseCreateView, BaseListView, TemplateResponseMixin** for the **GoalsView** and **BaseDetailView, TemplateResponseMixin** for the **MilestoneShowView**. 
+* All those views combine either display a form to create an object and a list of either the same species or yet another object class. This achieved by inheriting from different Django classes  **BaseCreateView, BaseListView, TemplateResponseMixin** for the **GoalsView** and **BaseDetailView, TemplateResponseMixin** for the **MilestoneShowView**. 
 
 * The **MilestoneCreateView** inherits from the **CreateMilestone** instead of the **BaseCreateView** as the form has to be costumized (does not contain the *g_id* and *goals* attribut).
-* To eventually display the list of objects as well as the creation form in the same template, the *get* methods are modified. An empty form is created by **BaseCreateview** or **CreateMilestone**. The lists are however queried in different ways: In the **GoalsView** by the **BaseListView** class. In the **MilestoneShowView** the Milestones are contained by the **BaseDetailView** of the consiered Goal, whereas the Goals list is obtained by an ordinary query *Goal.objects.all()*. 
+* To eventually display the list of objects as well as the creation form in the same template, the *get* methods are modified. An empty form is created by **BaseCreateview** or **CreateMilestone**. The lists are however queried in different ways: In the **GoalsView** by the **BaseListView** class. In the **MilestoneShowView** the Milestones are contained by the **BaseDetailView** of the considered Goal, whereas the Goals list is obtained by an ordinary query *Goal.objects.all()*. 
   
   ![loadData](pics/MilestoneShowView.png?raw=true "loadData")
   
-* The only error that occured during the development of this app in the **MilestoneCreateView** when the end date of the milestone was set before the startsdate. Google Calendar rejects this request and to avoid that the app crashes the *post* method of the milestoneCreateView will remind you of the incoherent input data.
+* The only error that occurred during the development of this app in the **MilestoneCreateView** when the end date of the milestone was set before the start date. Google Calendar rejects this request and to avoid that the app crashes the *post* method of the milestoneCreateView will remind you of the incoherent input data.
 
 
 
-* The **DeleteGoalView** and **DeleteMilestoneView** contain modified *get* methods to not only delete the Milestone from the local database but also the equivalent event in your calendar. In addition the *success_url* attribute of the **DeleteMileStoneView** class is modified to stay on the same page by the *get_success_url* method.
+* The **DeleteGoalView** and **DeleteMilestoneView** contain modified *get* methods to not only delete the Milestone from the local database but also the equivalent event in your calendar. In addition, the *success_url* attribute of the **DeleteMileStoneView** class is modified to stay on the same page by the *get_success_url* method.
   
   ![loadData](pics/DeleteMilestoneView.png?raw=true "loadData")
 
 * An additional **SynchronizeView** enables you to adapt your local database if events in the Google Calendar have been deleted.
 
 ### optional iframe
-In the template*milestones_list.html* an iframe is commented out with which you could potenitally display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
+In the template*milestones_list.html* an iframe is commented out with which you could potentially display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
