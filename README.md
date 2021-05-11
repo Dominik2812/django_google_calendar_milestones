@@ -61,11 +61,14 @@ The * views.py * consists of three major parts:
 
 ![loadData](pics/access.png?raw=true "loadData")
 
-* The **EventManipulation** class that enables the app to list, create and delete Google Calendar events.
+* The **EventManipulation** class that enables the app to list, create and delete Google Calendar events. Methods from the **AccessToGoogleCalendar** class are inherited.
 
-* The third part consists of all the View classes to list, create and delete objects from the database. 
+* The third part consists of all the View classes to list, create and delete objects from the database. Those Views inherit from the previous parts **Eventmanipulation** and thereby from  the **AccessToGoogleCalendar** class. There are three major views. The GoalsView, that enables you to create a goal and lists all former goals to the right. The MilestoneCreateView does the same for Milestone objects. The MilestoneShowView enables you to comfortably display all Milestones of a certain Goal, with the list of Goals on the left and the lsit of goals on the right. 
 
-  * To display the list of objects as well as the creation form in the same template, the *get* method of the **GoalsView** as well as the **MilestoneView** has been modified in the following manner.
+* All those views combine either display a form to create an object and a list of either the same species or yet another object class. This achived by inheriting from different Django classes  **BaseCreateView, BaseListView, TemplateResponseMixin** for the **GoalsView** and **BaseDetailView, TemplateResponseMixin** for the **MilestoneShowView**. 
+
+* The **MilestoneCreateView** inherits from the **CreateMilestone** instead of the **BaseCreateView** as the form has to be costumized (does not contain the *g_id* and *goals* attribut).
+* To eventually display the list of objects as well as the creation form in the same template, the *get* methods is modified create an empty form and by **BaseCreateview** or **CreateMilestone**. The lists are queried in different ways: In the **GoalsView** by the **BaseListView** class, in the **MilestoneShowView** the Milestones are contained by the **BaseDetailView** of the consiered Goal, whereas the Goals list is obtained by an ordinary query *Goal.objects.all()*. 
   
   ![loadData](pics/create_list.png?raw=true "loadData")
   
@@ -75,4 +78,4 @@ The * views.py * consists of three major parts:
   
 
 ### optional iframes
-In the templates *goals.html* and *detail_goal.html* an iframe is commented out with which you couldd potenitally display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
+In the template*milestones_list.html* an iframe is commented out with which you could potenitally display the google calendar directly to the template. It is however not possible to see the color-coding in this iframe, which I thought is lame and not in the spirit of the project. 
