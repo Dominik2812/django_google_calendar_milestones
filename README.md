@@ -2,22 +2,26 @@
 
 ## What are milestones about?
 
-* Use a  google calendar to break problems, challenges and projects into milestones.
+Use a google calendar to approach goals, challenges and projects step by step: Break them into feasible milestones.
 
-* Formulate your goals.
+* Formulate your goals and color code them.
 
 ![loadData](pics/create_goals.png?raw=true "create_goals")
 
 
-* Create the necessary steps to reach your goal; the milestones.
+* Create the necessary steps to reach your goal; the milestones. Set a start and an end date and if neccessary add a note to the milestone.
 
 ![loadData](pics/create_milestones.png?raw=true "loadData")
 
-* ![loadData](pics/list_milestones.png?raw=true "loadData")
+* Comfortably switch between the goals or projects and consider their milestones
+
+![loadData](pics/show_milestones.png?raw=true "loadData")
 
 * View your milestones as events on your Google Calendar, their color code relates to the goals they are linked to.
 
 ![loadData](pics/calendar.png?raw=true "loadData")
+
+
 
 ## First steps: get access to google calendar
 To use this app you need to communicate with your Google calendar. For that please follow these steps:
