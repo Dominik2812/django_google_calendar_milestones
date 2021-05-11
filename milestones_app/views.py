@@ -99,7 +99,6 @@ class EventManipulation(AcccessToGoogleCalendar):
                 "timeZone": "Europe/Amsterdam",
             },
         }
-
         e = (
             enter.events()
             .insert(calendarId="primary", sendNotifications=True, body=event)
@@ -123,10 +122,10 @@ class GoalsView(BaseCreateView, BaseListView, TemplateResponseMixin):
     success_url = ""
 
     def get(self, request, *args, **kwargs):
-        formView = BaseCreateView.get(self, request, *args, **kwargs)
-        listView = BaseListView.get(self, request, *args, **kwargs)
-        formData = formView.context_data["form"]  # form to create  a goal
-        listData = listView.context_data["object_list"]  # list of all goals
+        form_view = BaseCreateView.get(self, request, *args, **kwargs)
+        list_view = BaseListView.get(self, request, *args, **kwargs)
+        form_data = form_view.context_data["form"]  # form to create a goal
+        list_data = list_view.context_data["object_list"]  # list of all goals
 
         # Assign the  goal.color_code depending on which color_id was chosen.
         # This color code is used to mark your goals within your templates.
@@ -145,7 +144,7 @@ class GoalsView(BaseCreateView, BaseListView, TemplateResponseMixin):
             "#0b8043",
             "#d60000",
         ]
-        for object in listData:
+        for object in list_data:
             object.color_code = hex_color_code[int(object.color_id)]
             object.save()
 
@@ -153,8 +152,8 @@ class GoalsView(BaseCreateView, BaseListView, TemplateResponseMixin):
             request,
             self.template_name,
             {
-                "goal_form": formData,
-                "goals": listData,
+                "goal_form": form_data,
+                "goals": list_data,
             },
         )
 
@@ -171,6 +170,7 @@ class MilestoneShowView(BaseDetailView, TemplateResponseMixin):
     # Process the request
     def get(self, request, *args, **kwargs):
 
+        # Gather the data to diplay the goals list and the milestones of the goal you just clicked on
         goal_detail_view = BaseDetailView.get(self, request, *args, **kwargs)
         goal_detail_data = goal_detail_view.context_data["object"]
         goals_list_data = Goal.objects.all()
@@ -252,7 +252,7 @@ class MilestoneCreateView(
                 "goal": list_data,
             },
         )
-
+    # Needs to be modified for error message
     def post(self, request, *args, **kwargs):
 
         if (
@@ -280,7 +280,7 @@ class DeleteGoalView(EventManipulation, DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-class DeleteMileStoneView(EventManipulation, DeleteView):
+class DeleteMilestoneView(EventManipulation, DeleteView):
     model = Milestone
 
     def get_success_url(self):
@@ -293,9 +293,8 @@ class DeleteMileStoneView(EventManipulation, DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-# Calling this SynchronizeView will be neccessary if you deleteted an event directly on Google Calendar. 
+# Calling this SynchronizeView will be neccessary if you deleteted an event directly on Google Calendar.
 # Events that cannot be found in google calendar will be deleted from the database.
-
 class SynchronizeView(EventManipulation, GoalsView):
     def synchronize(self):
         db_milestones = Milestone.objects.all()
