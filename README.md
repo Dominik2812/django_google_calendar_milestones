@@ -2,7 +2,7 @@
 
 ## What are milestones about?
 
-Use a google calendar to approach goals, challenges and projects step by step: Break them into feasible milestones.
+A Django Class Based Views API, that enables you to use your google calendar to approach goals, challenges and projects step by step: Break them into feasible milestones.
 
 * Formulate your goals and color code them.
 
