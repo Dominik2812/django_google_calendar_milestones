@@ -20,5 +20,6 @@ from milestones_app import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.GoalsView.as_view(), name="goals"),
+    path("<int:pk>", views.CombinedCreateView.as_view(), name="combined"),
     path("milestones", include("milestones_app.urls"), name="milestones"),
 ]

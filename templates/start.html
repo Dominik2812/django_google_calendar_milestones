@@ -24,20 +24,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
         <div>
             {% if milestone_form %}
-                <form action="{% url 'milestones_app:detail_goal' pk=goal.id %}" class="m-2">
-                    <button type="submit" class="btn btn-dark  m-1 "> back to {{ goal.title }}</button>
-                </form>
+            <form action="{% url 'combined' pk=goal.id %}" class="m-2">
+                <button type="submit" class="btn btn-dark  m-1 "> back to {{ goal.title }}</button>
+            </form>
             {% endif %}
 
         </div>
 
-        <form action="{% url 'goals' %}">
-            <button type="submit" class="btn btn-warning m-3">Goals</button>
-        </form>
 
-        <form action="{% url 'milestones_app:synchronize' %}">
-            <button type="submit" class="btn btn-danger m-3">synchronize</button>
-        </form>
     </nav>
 
 
