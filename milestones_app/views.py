@@ -25,6 +25,7 @@ from django.views.generic.edit import (
     BaseDetailView,
     FormView,
 )
+from django.views.generic.detail import SingleObjectMixin
 
 # Local import
 from .models import Milestone, Goal
@@ -115,12 +116,10 @@ class EventManipulation(AcccessToGoogleCalendar):
 ########################################################################
 # Views, interacting with objects of local database
 ########################################################################
-class GoalsList(ListView):
-    model = Goal
 
 
 # create goals and list then on one page
-class GoalsView(BaseCreateView, GoalsList, TemplateResponseMixin):  # BaseListView,
+class GoalsView(CreateView, ListView, TemplateResponseMixin):  # BaseListView,
     fields = ("title", "color_id")
     model = Goal
     template_name = "milestones_app/combined_view.html"
@@ -128,9 +127,9 @@ class GoalsView(BaseCreateView, GoalsList, TemplateResponseMixin):  # BaseListVi
 
     def get(self, request, *args, **kwargs):
         print(request.GET, args, kwargs)
-        form_view = BaseCreateView.get(self, request, *args, **kwargs)
+        form_view = CreateView.get(self, request, *args, **kwargs)
         form_data = form_view.context_data["form"]  # form to create a goal
-        list_view = GoalsList.get(self, request, *args, **kwargs)
+        list_view = ListView.get(self, request, *args, **kwargs)
         print(list_view.context_data)
         list_data = list_view.context_data["object_list"]  # list of all goals
 
@@ -166,13 +165,10 @@ class GoalsView(BaseCreateView, GoalsList, TemplateResponseMixin):  # BaseListVi
 
 
 class CombinedCreateView(
-    View,
+    SingleObjectMixin,
+    FormView,
     EventManipulation,
-    GoalForm,
-    MileStoneForm,
-    TemplateResponseMixin,
 ):
-
     template_name = "milestones_app/combined_view.html"
 
     # Create a success_url that includes a variable; here the id of the goal
