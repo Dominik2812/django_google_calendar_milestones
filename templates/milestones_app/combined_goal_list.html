@@ -1,0 +1,26 @@
+<div class="col-md-2 m-3 d-flex flex-wrap " style=" width:750px; height:auto">
+    {% for goal in goals %}
+    <div class="card d-flex flex-row justify-content-between m-3" style="width:300px;  height:300px">
+
+
+
+        <div class="card-body d-flex flex-column justify-content-between text-center" style=" max-width: 75%;">
+            <div class=" overflow-hidden " style=" max-width: 100%; background-color: {{ goal.color_code }}">
+                <div class="card-title overflow-hidden  ">
+                    <h1 class="card-title overflow-hidden " style="height:200px"> {{ goal.title }} </h1>
+                </div>
+
+            </div>
+            <form action="{% url 'combined' pk=goal.id %}">
+                <button type="submit" class="btn btn-outline-primary w-75 m-1"> Milestones </button>
+            </form>
+
+        </div>
+
+
+        <form action="{% url 'milestones_app:delete_goal' pk=goal.id %}">
+            <button type="submit" class="btn btn-danger w-auto ">X</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>

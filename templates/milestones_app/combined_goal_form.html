@@ -1,0 +1,18 @@
+<div class="card m-3 p-4 col-md-2" style="width:400px">
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <h4>Goal</h4>
+            {{ goal_form.title }}
+        </div>
+
+        <div>
+            <h4>Color</h4>
+            {{ goal_form.color_id }}
+        </div>
+
+        <button type="submit" class="btn btn-success m-3 " name="create_goal">
+            create Goal
+        </button>
+    </form>
+</div>
