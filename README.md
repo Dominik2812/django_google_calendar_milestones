@@ -29,6 +29,7 @@ A Django Class Based Views API, that enables you to use your google calendar to 
   <img src="pics/calendar.png" width="500" />
 </p>
 
+Please note: The project is an ongoing permanent experiment in which I am trying different techniques (CBV vs. query approach), layouts (several views vs. one view) and designs (colors, size and positioning). Features such as error handling and updateviews are not yet included to facilitate modifications.
 Currently there are two versions of this project: The main branch is what this Readme file is all about. The branch *creation_and_list_with_queries* is a little modified and basically displays the lists and creation views of both, Goals and Milestones on one page. 
 
 ## First steps: get access to google calendar
