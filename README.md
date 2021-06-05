@@ -1,4 +1,5 @@
 # google_calendar_milestones
+### a fullstack API that enables you to chop your Big Goals into mini tasks.
 
 ## What are Milestones?
 
