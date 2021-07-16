@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 
 from milestones_app.secret import DjangoSecreteKey
+import environ
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ TEMP_DIR = os.path.join(BASE_DIR, "templates")
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = DjangoSecreteKey
+SECRET_KEY = os.getenv('DjangoSecreteKey')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
