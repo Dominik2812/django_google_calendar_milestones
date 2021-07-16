@@ -242,7 +242,7 @@ class MilestoneCreateView(
                     str(milestone.color_id),
                 )
                 goal = str(milestone.goal)
-                self.create_event(goal, title, text, start, end, g_id, color_id)
+                # self.create_event(goal, title, text, start, end, g_id, color_id)
                 milestone.save()
         return render(
             request,
@@ -274,9 +274,9 @@ class DeleteGoalView(EventManipulation, DeleteView):
         adhered_milestones = [
             stone.g_id for stone in Goal.objects.get(id=kwargs["pk"]).milestones.all()
         ]
-        for g_id in adhered_milestones:
-            if g_id in self.get_events():
-                self.delete_event(g_id)
+        # for g_id in adhered_milestones:
+        #     if g_id in self.get_events():
+        #         self.delete_event(g_id)
         return self.post(request, *args, **kwargs)
 
 
@@ -288,8 +288,8 @@ class DeleteMilestoneView(EventManipulation, DeleteView):
 
     def get(self, request, *args, **kwargs):
         g_id = Milestone.objects.get(id=kwargs["pk"]).g_id
-        if g_id in self.get_events():
-            self.delete_event(g_id)
+        # if g_id in self.get_events():
+        #     self.delete_event(g_id)
         return self.post(request, *args, **kwargs)
 
 
@@ -307,5 +307,5 @@ class SynchronizeView(EventManipulation, GoalsView):
                 Milestone.objects.get(g_id=milestone).delete()
 
     def get(self, request, *args, **kwargs):
-        self.synchronize()
+        # self.synchronize()
         return HttpResponseRedirect(reverse("goals"))

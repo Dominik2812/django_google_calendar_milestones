@@ -1,7 +1,11 @@
-db.sqlite3
+*.sqlite3
 MilestonesWithDatabase.pptx
 client_secret.json
 token.pkl
 secret.py
 *.pyc
 .env
+.env
+*.pyc
+.vscode
+*.sqlite3
